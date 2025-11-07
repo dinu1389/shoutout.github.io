@@ -223,13 +223,30 @@ function showValidationError(message) {
     }, 3000);
 }
 
+// Helper function to escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 function generateEstimation(customerName, location, plotArea, packageType, email, phone) {
     const packageData = packageSpecs[packageType];
     const totalCost = plotArea * packageData.rate;
     const randomFact = constructionFacts[Math.floor(Math.random() * constructionFacts.length)];
     
+    // Sanitize user inputs
+    customerName = escapeHtml(customerName);
+    location = escapeHtml(location);
+    email = email ? escapeHtml(email) : '';
+    phone = phone ? escapeHtml(phone) : '';
+    
     // Create new window for estimation
     const estimationWindow = window.open('', '_blank');
+    
+    // Note: Using document.write() for client-side generation of estimation page
+    // All user inputs are sanitized via escapeHtml() to prevent XSS
+    // This is a client-side only application with no backend server
     
     // Generate HTML
     const html = `
