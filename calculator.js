@@ -208,28 +208,31 @@ const constructionFacts = [
 function calculateMaterialEstimates(areaInSqFt, floors) {
     const floorCount = getFloorCount(floors);
     const totalBuiltUpArea = areaInSqFt * floorCount;
-    
-    // Cement bags (50kg each)
-    const cementBags = Math.ceil(totalBuiltUpArea * MATERIAL_RATIOS.CEMENT_BAGS_PER_SQFT);
-    
+
+    // Cement bags calculation (adjusted formula)
+    const cementForSlabs = totalBuiltUpArea * 0.1; // Slabs
+    const cementForWalls = totalBuiltUpArea * MATERIAL_RATIOS.WALL_AREA_RATIO * 0.1; // Walls
+    const cementForPillars = totalBuiltUpArea * 0.03; // Pillars
+    const cementBags = Math.ceil(cementForSlabs + cementForWalls + cementForPillars);
+
     // Bricks - assuming percentage of built-up area is walls
     const wallArea = totalBuiltUpArea * MATERIAL_RATIOS.WALL_AREA_RATIO;
-    const bricks = Math.ceil(wallArea * MATERIAL_RATIOS.BRICKS_PER_SQFT_WALL);
-    
+    const bricks = Math.ceil(wallArea * 16); // Updated to 16 bricks per sq. ft
+
     // TMT bars (in tons)
     const tmtBarsKg = totalBuiltUpArea * MATERIAL_RATIOS.TMT_BARS_KG_PER_SQFT;
     const tmtBars = (tmtBarsKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
-    
+
     // Sand (in tons)
     const sandCuFt = totalBuiltUpArea * MATERIAL_RATIOS.SAND_CUFT_PER_SQFT;
     const sandKg = sandCuFt * MATERIAL_RATIOS.SAND_KG_PER_CUFT;
     const sand = (sandKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
-    
+
     // Gravel/Aggregate (in tons)
     const gravelCuFt = totalBuiltUpArea * MATERIAL_RATIOS.GRAVEL_CUFT_PER_SQFT;
     const gravelKg = gravelCuFt * MATERIAL_RATIOS.GRAVEL_KG_PER_CUFT;
     const gravel = (gravelKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
-    
+
     return {
         cementBags,
         bricks,
@@ -239,7 +242,6 @@ function calculateMaterialEstimates(areaInSqFt, floors) {
         totalBuiltUpArea
     };
 }
-
 // Get floor count from floor selection
 function getFloorCount(floors) {
     const floorMap = {
