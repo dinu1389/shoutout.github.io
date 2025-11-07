@@ -1,5 +1,5 @@
-// WhatsApp Configuration
-const WHATSAPP_NUMBER = '919876543210'; // Replace with your actual WhatsApp number (country code + number)
+// WhatsApp Configuration (from global config)
+const WHATSAPP_NUMBER = GLOBAL_CONFIG.WHATSAPP_NUMBER;
 
 // Form Spam Protection Constants
 const MINIMUM_FORM_TIME_MS = 3000; // Minimum time in milliseconds before form can be submitted
@@ -207,6 +207,11 @@ function validateField(field) {
         if (!isValidIndianPhone(value)) {
             errorMessage = 'Enter a valid 10-digit mobile number starting with 6-9';
             isValid = false;
+        } else {
+            // Send ntfy.sh notification when valid phone number is entered
+            const nameField = document.getElementById('name');
+            const customerName = nameField ? nameField.value.trim() : '';
+            sendNtfyNotification(value, customerName);
         }
     }
     // Email validation (optional field)
@@ -263,6 +268,39 @@ function clearError(fieldId) {
 function isValidIndianPhone(phone) {
     // Must start with 6-9 and be exactly 10 digits
     return INDIAN_PHONE_REGEX.test(phone);
+}
+
+// Track notified phone numbers to prevent duplicate notifications
+const notifiedPhones = new Set();
+
+// Send notification to ntfy.sh
+async function sendNtfyNotification(phone, name = '') {
+    if (!NTFY_CONFIG.ENABLED) return;
+    
+    // Prevent duplicate notifications for the same phone number
+    if (notifiedPhones.has(phone)) return;
+    
+    try {
+        const message = name 
+            ? `New phone number entered: ${phone} (${name})`
+            : `New phone number entered: ${phone}`;
+        
+        await fetch(`https://ntfy.sh/${NTFY_CONFIG.TOPIC}`, {
+            method: 'POST',
+            body: message,
+            headers: {
+                'Title': '📱 ShoutOut - New Phone Number',
+                'Priority': 'default',
+                'Tags': 'phone,lead'
+            }
+        });
+        
+        // Mark this phone as notified
+        notifiedPhones.add(phone);
+        console.log('Notification sent to ntfy.sh');
+    } catch (error) {
+        console.error('Failed to send ntfy.sh notification:', error);
+    }
 }
 
 // Create WhatsApp Message

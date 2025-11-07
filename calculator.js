@@ -1,11 +1,26 @@
 // Construction Calculator Script
 
-// Configuration
-// Construction Calculator Script
-
-// Configuration
-const WHATSAPP_NUMBER = '919876543210'; // Replace with your actual WhatsApp number (country code + number)
+// Configuration (from global config)
+const WHATSAPP_NUMBER = GLOBAL_CONFIG.WHATSAPP_NUMBER;
 const MIN_PLOT_AREA = 100; // Minimum plot area in sq. ft
+
+// Area conversion constants
+const SQYARD_TO_SQFT = 9; // 1 sq yard = 9 sq ft
+
+// Material estimation constants (industry-standard ratios)
+const MATERIAL_RATIOS = {
+    CEMENT_BAGS_PER_SQFT: 0.4,      // Cement bags (50kg) per sq.ft for all work
+    WALL_AREA_RATIO: 0.3,            // Percentage of built-up area that is walls
+    BRICKS_PER_SQFT_WALL: 8,         // Bricks per sq.ft of wall area
+    TMT_BARS_KG_PER_SQFT: 4.5,       // TMT bars in kg per sq.ft
+    SAND_CUFT_PER_SQFT: 1.2,         // Sand in cubic feet per sq.ft
+    SAND_KG_PER_CUFT: 45,            // Weight of sand in kg per cubic feet
+    GRAVEL_CUFT_PER_SQFT: 1.5,       // Gravel/Aggregate in cubic feet per sq.ft
+    GRAVEL_KG_PER_CUFT: 50,          // Weight of aggregate in kg per cubic feet
+    KG_TO_TONS: 1000                 // Conversion factor from kg to tons
+};
+
+const AREA_CONVERSION_DECIMAL_PLACES = 2;
 
 // Package specifications with simplified text
 const packageSpecs = {
@@ -188,6 +203,96 @@ const constructionFacts = [
     "Smart construction planning today saves significant maintenance costs tomorrow."
 ];
 
+// Material estimation formulas (approximate)
+// These are industry-standard estimates and may vary based on design
+function calculateMaterialEstimates(areaInSqFt, floors) {
+    const floorCount = getFloorCount(floors);
+    const totalBuiltUpArea = areaInSqFt * floorCount;
+
+    // Cement bags calculation (adjusted formula)
+    const cementForSlabs = totalBuiltUpArea * 0.1; // Slabs
+    const cementForWalls = totalBuiltUpArea * MATERIAL_RATIOS.WALL_AREA_RATIO * 0.1; // Walls
+    const cementForPillars = totalBuiltUpArea * 0.03; // Pillars
+    const cementBags = Math.ceil(cementForSlabs + cementForWalls + cementForPillars);
+
+    // Bricks - assuming percentage of built-up area is walls
+    const wallArea = totalBuiltUpArea * MATERIAL_RATIOS.WALL_AREA_RATIO;
+    const bricks = Math.ceil(wallArea * 16); // Updated to 16 bricks per sq. ft
+
+    // TMT bars (in tons)
+    const tmtBarsKg = totalBuiltUpArea * MATERIAL_RATIOS.TMT_BARS_KG_PER_SQFT;
+    const tmtBars = (tmtBarsKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
+
+    // Sand (in tons)
+    const sandCuFt = totalBuiltUpArea * MATERIAL_RATIOS.SAND_CUFT_PER_SQFT;
+    const sandKg = sandCuFt * MATERIAL_RATIOS.SAND_KG_PER_CUFT;
+    const sand = (sandKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
+
+    // Gravel/Aggregate (in tons)
+    const gravelCuFt = totalBuiltUpArea * MATERIAL_RATIOS.GRAVEL_CUFT_PER_SQFT;
+    const gravelKg = gravelCuFt * MATERIAL_RATIOS.GRAVEL_KG_PER_CUFT;
+    const gravel = (gravelKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
+
+    return {
+        cementBags,
+        bricks,
+        tmtBars,
+        sand,
+        gravel,
+        totalBuiltUpArea
+    };
+}
+// Get floor count from floor selection
+function getFloorCount(floors) {
+    const floorMap = {
+        'G': 1,
+        'G+1': 2,
+        'G+2': 3,
+        'G+3': 4,
+        'G+4': 5,
+        'G+5': 6
+    };
+    return floorMap[floors] || 1;
+}
+
+// Convert area based on unit
+function convertArea(area, unit) {
+    if (unit === 'sqyard') {
+        return area * SQYARD_TO_SQFT;
+    }
+    return area;
+}
+
+// Area conversion display
+document.addEventListener('DOMContentLoaded', function() {
+    const areaUnitSelect = document.getElementById('areaUnit');
+    const plotAreaInput = document.getElementById('plotArea');
+    const areaConversionDiv = document.getElementById('areaConversion');
+    
+    function updateAreaConversion() {
+        const unit = areaUnitSelect.value;
+        const area = parseFloat(plotAreaInput.value);
+        
+        if (!unit || !area) {
+            areaConversionDiv.textContent = '';
+            return;
+        }
+        
+        if (unit === 'sqyard') {
+            const sqft = area * SQYARD_TO_SQFT;
+            areaConversionDiv.textContent = `≈ ${sqft.toLocaleString('en-IN')} sq.ft`;
+        } else {
+            const sqyard = (area / SQYARD_TO_SQFT).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
+            areaConversionDiv.textContent = `≈ ${sqyard} sq.yd`;
+        }
+    }
+    
+    if (areaUnitSelect && plotAreaInput && areaConversionDiv) {
+        areaUnitSelect.addEventListener('change', updateAreaConversion);
+        plotAreaInput.addEventListener('input', updateAreaConversion);
+    }
+});
+
 // Form submission handler
 document.getElementById('calculatorForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -195,24 +300,29 @@ document.getElementById('calculatorForm').addEventListener('submit', function(e)
     // Get form data
     const customerName = document.getElementById('customerName').value.trim();
     const location = document.getElementById('location').value.trim();
+    const areaUnit = document.getElementById('areaUnit').value;
     const plotArea = parseFloat(document.getElementById('plotArea').value);
+    const floors = document.getElementById('floors').value;
     const packageType = document.getElementById('package').value;
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
     
     // Validate
-    if (!customerName || !location || !plotArea || !packageType) {
+    if (!customerName || !location || !areaUnit || !plotArea || !floors || !packageType) {
         showValidationError('Please fill in all required fields');
         return;
     }
     
     if (plotArea < MIN_PLOT_AREA) {
-        showValidationError(`Plot area must be at least ${MIN_PLOT_AREA} sq. ft`);
+        showValidationError(`Plot area must be at least ${MIN_PLOT_AREA} ${areaUnit === 'sqyard' ? 'sq. yd' : 'sq. ft'}`);
         return;
     }
     
+    // Convert area to sq.ft for calculation
+    const areaInSqFt = convertArea(plotArea, areaUnit);
+    
     // Generate estimation
-    generateEstimation(customerName, location, plotArea, packageType, email, phone);
+    generateEstimation(customerName, location, plotArea, areaUnit, areaInSqFt, floors, packageType, email, phone);
 });
 
 function showValidationError(message) {
@@ -233,10 +343,15 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function generateEstimation(customerName, location, plotArea, packageType, email, phone) {
+function generateEstimation(customerName, location, plotArea, areaUnit, areaInSqFt, floors, packageType, email, phone) {
     const packageData = packageSpecs[packageType];
-    const totalCost = plotArea * packageData.rate;
+    const floorCount = getFloorCount(floors); // Get the number of floors
+    const totalBuiltUpArea = areaInSqFt * floorCount; // Total built-up area for all floors
+    const totalCost = totalBuiltUpArea * packageData.rate; // Total cost for all floors
     const randomFact = constructionFacts[Math.floor(Math.random() * constructionFacts.length)];
+    
+    // Calculate material estimates
+    const materials = calculateMaterialEstimates(areaInSqFt, floors);
     
     // Sanitize user inputs
     customerName = escapeHtml(customerName);
@@ -244,12 +359,13 @@ function generateEstimation(customerName, location, plotArea, packageType, email
     email = email ? escapeHtml(email) : '';
     phone = phone ? escapeHtml(phone) : '';
     
+    // Format area display
+    const areaDisplay = areaUnit === 'sqyard' 
+        ? `${plotArea.toLocaleString('en-IN')} sq. yd (${areaInSqFt.toLocaleString('en-IN')} sq. ft)`
+        : `${plotArea.toLocaleString('en-IN')} sq. ft`;
+    
     // Create new window for estimation
     const estimationWindow = window.open('', '_blank');
-    
-    // Note: Using document.write() for client-side generation of estimation page
-    // All user inputs are sanitized via escapeHtml() to prevent XSS
-    // This is a client-side only application with no backend server
     
     // Generate HTML
     const html = `
@@ -272,7 +388,7 @@ function generateEstimation(customerName, location, plotArea, packageType, email
         <div class="estimation-header">
             <div class="company-logo">🏗️ ShoutOut Construction</div>
             <h1 class="estimation-title">Construction Cost Estimation</h1>
-            <p style="color: #7f8c8d; font-size: 1.1rem;">Detailed Package Specifications & Pricing</p>
+            <p style="color: #7f8c8d; font-size: 1.1rem;">Detailed Package Specifications, Pricing & Material Requirements</p>
         </div>
 
         <div class="customer-info">
@@ -286,23 +402,66 @@ function generateEstimation(customerName, location, plotArea, packageType, email
                 <span class="info-label">Selected Package:</span>
                 <span class="package-badge ${packageData.color}">${packageData.name} - ₹${packageData.rate.toLocaleString('en-IN')} per sq. ft</span>
             </div>
+            <div class="info-row"><span class="info-label">Floors:</span> ${floors}</div>
         </div>
 
         <div class="construction-fact">
             💡 ${randomFact}
         </div>
 
-        <div class="specifications">
-            <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Detailed Specifications - ${packageData.name} Package</h2>
-            
-            ${generateSpecificationsSections(packageData.specs)}
+        <div class="material-estimates">
+            <h2>📊 Material Estimates</h2>
+            <p style="color: #7f8c8d; margin-bottom: 20px;">Approximate material requirements for ${materials.totalBuiltUpArea.toLocaleString('en-IN')} sq. ft built-up area (${floors})</p>
+            <div class="material-grid">
+                <div class="material-card">
+                    <div class="material-icon">🏗️</div>
+                    <div class="material-name">Cement Bags</div>
+                    <div class="material-value">${materials.cementBags.toLocaleString('en-IN')}</div>
+                    <div class="material-unit">bags (50 kg each)</div>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">🧱</div>
+                    <div class="material-name">Bricks</div>
+                    <div class="material-value">${materials.bricks.toLocaleString('en-IN')}</div>
+                    <div class="material-unit">count</div>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">⚙️</div>
+                    <div class="material-name">TMT Bars</div>
+                    <div class="material-value">${materials.tmtBars}</div>
+                    <div class="material-unit">tons</div>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">🏖️</div>
+                    <div class="material-name">Sand</div>
+                    <div class="material-value">${materials.sand}</div>
+                    <div class="material-unit">tons</div>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">🪨</div>
+                    <div class="material-name">Gravel/Aggregate</div>
+                    <div class="material-value">${materials.gravel}</div>
+                    <div class="material-unit">tons</div>
+                </div>
+            </div>
+            <p style="margin-top: 15px; color: #7f8c8d; font-size: 0.9rem; font-style: italic;">
+                * These are approximate estimates based on industry standards. Actual requirements may vary based on structural design, soil conditions, and architectural specifications.
+            </p>
         </div>
 
         <div class="cost-summary">
             <h2>Cost Summary</h2>
             <div class="cost-row">
                 <span>Construction Area:</span>
-                <span>${plotArea.toLocaleString('en-IN')} sq. ft</span>
+                <span>${areaDisplay}</span>
+            </div>
+            <div class="cost-row">
+                <span>Number of Floors:</span>
+                <span>${floors}</span>
+            </div>
+            <div class="cost-row">
+                <span>Total Built-up Area:</span>
+                <span>${totalBuiltUpArea.toLocaleString('en-IN')} sq. ft</span>
             </div>
             <div class="cost-row">
                 <span>Rate per sq. ft (${packageData.name} Package):</span>
@@ -329,7 +488,7 @@ function generateEstimation(customerName, location, plotArea, packageType, email
 
         <div class="action-buttons no-print">
             <button onclick="window.print()" class="btn btn-print">🖨️ Print Estimation</button>
-            <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! I generated a construction estimation on ShoutOut. I would like to discuss the ' + packageData.name + ' package for ' + plotArea + ' sq.ft.')}" 
+            <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! I generated a construction estimation on ShoutOut. I would like to discuss the ' + packageData.name + ' package for ' + areaDisplay + ' (' + floors + ').')}" 
                class="btn btn-whatsapp" target="_blank">
                 💬 Discuss on WhatsApp
             </a>
