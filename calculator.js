@@ -2,6 +2,7 @@
 
 // Configuration
 const WHATSAPP_NUMBER = '919876543210'; // Replace with your actual WhatsApp number (country code + number)
+const MIN_PLOT_AREA = 100; // Minimum plot area in sq. ft
 
 // Package specifications with detailed breakdown
 const packageSpecs = {
@@ -202,8 +203,8 @@ document.getElementById('calculatorForm').addEventListener('submit', function(e)
         return;
     }
     
-    if (plotArea < 100) {
-        showValidationError('Plot area must be at least 100 sq. ft');
+    if (plotArea < MIN_PLOT_AREA) {
+        showValidationError(`Plot area must be at least ${MIN_PLOT_AREA} sq. ft`);
         return;
     }
     

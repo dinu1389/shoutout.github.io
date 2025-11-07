@@ -428,12 +428,33 @@ body {
 }
 
 @media print {
-    .action-buttons, .back-link {
+    .action-buttons, .no-print {
         display: none;
     }
     
     body {
         background: white;
+    }
+    
+    .estimation-page {
+        padding: 20px;
+    }
+    
+    .spec-section {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    .spec-header {
+        background: #25D366 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .construction-fact, .closing-message {
+        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }
 
