@@ -1,9 +1,13 @@
 // WhatsApp Configuration
 const WHATSAPP_NUMBER = '919876543210'; // Replace with your actual WhatsApp number (country code + number)
 
+// Form Spam Protection Constants
+const MINIMUM_FORM_TIME_MS = 3000; // Minimum time in milliseconds before form can be submitted
+const INDIAN_PHONE_REGEX = /^[6-9][0-9]{9}$/; // Indian mobile number pattern
+
 // GTM Event Tracking Helper
 function trackEvent(eventName, eventData = {}) {
-    if (typeof window.dataLayer !== 'undefined') {
+    if (typeof window.dataLayer !== 'undefined' && Array.isArray(window.dataLayer)) {
         window.dataLayer.push({
             'event': eventName,
             ...eventData
@@ -101,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
             form.dataset.loadTime = Date.now();
         }
         const timeSinceLoad = Date.now() - parseInt(form.dataset.loadTime);
-        if (timeSinceLoad < 3000) { // Less than 3 seconds
+        if (timeSinceLoad < MINIMUM_FORM_TIME_MS) {
             console.log('Spam detected - too fast submission');
             trackEvent('spam_blocked', {
                 'event_category': 'Form',
@@ -200,7 +204,7 @@ function validateField(field) {
     }
     // Phone validation
     else if (fieldId === 'phone' && value) {
-        if (!/^[6-9][0-9]{9}$/.test(value)) {
+        if (!isValidIndianPhone(value)) {
             errorMessage = 'Enter a valid 10-digit mobile number starting with 6-9';
             isValid = false;
         }
@@ -258,7 +262,7 @@ function clearError(fieldId) {
 // Validate Indian Phone Number
 function isValidIndianPhone(phone) {
     // Must start with 6-9 and be exactly 10 digits
-    return /^[6-9][0-9]{9}$/.test(phone);
+    return INDIAN_PHONE_REGEX.test(phone);
 }
 
 // Create WhatsApp Message
