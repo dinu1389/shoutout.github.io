@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop Building Materials Online - Sand, Cement, TMT Bars, Doors, WPC Frames & More in Hyderabad">
+    <title>Shop Building Materials | ShoutOut - Hyderabad</title>
+    <link rel="stylesheet" href="shop-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="shop-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>ShoutOut</h1>
+                    <p>Building Materials</p>
+                </div>
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="calculator.html">Calculator</a>
+                    <a href="shop.html" class="active">Shop</a>
+                </nav>
+                <div class="cart-icon" onclick="toggleCart()">
+                    🛒 Cart (<span id="cart-count">0</span>)
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="shop-hero">
+        <div class="container">
+            <h1>Premium Building Materials</h1>
+            <p>Quality construction materials delivered to your doorstep in Hyderabad</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                <button class="filter-btn" onclick="filterProducts('cement')">Cement & Concrete</button>
+                <button class="filter-btn" onclick="filterProducts('aggregates')">Aggregates</button>
+                <button class="filter-btn" onclick="filterProducts('steel')">Steel & TMT</button>
+                <button class="filter-btn" onclick="filterProducts('doors')">Doors & Frames</button>
+                <button class="filter-btn" onclick="filterProducts('plumbing')">Plumbing</button>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Cement Products -->
+                <div class="product-card" data-category="cement">
+                    <div class="product-image">
+                        <div class="image-placeholder">🏗️</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ultratech Cement</h3>
+                        <p class="product-description">OPC 53 Grade - 50kg Bag</p>
+                        <div class="product-price">₹380</div>
+                        <div class="product-unit">Per Bag</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'Ultratech Cement 50kg', 380, 'cement')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cement">
+                    <div class="product-image">
+                        <div class="image-placeholder">🏗️</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>ACC Cement</h3>
+                        <p class="product-description">PPC Grade - 50kg Bag</p>
+                        <div class="product-price">₹360</div>
+                        <div class="product-unit">Per Bag</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'ACC Cement 50kg', 360, 'cement')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Aggregates -->
+                <div class="product-card" data-category="aggregates">
+                    <div class="product-image">
+                        <div class="image-placeholder">🪨</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>M-Sand (Manufactured Sand)</h3>
+                        <p class="product-description">Premium quality for construction</p>
+                        <div class="product-price">₹1,800</div>
+                        <div class="product-unit">Per Ton</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'M-Sand (1 Ton)', 1800, 'aggregates')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="aggregates">
+                    <div class="product-image">
+                        <div class="image-placeholder">🪨</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>River Sand</h3>
+                        <p class="product-description">Natural river sand for plastering</p>
+                        <div class="product-price">₹2,200</div>
+                        <div class="product-unit">Per Ton</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'River Sand (1 Ton)', 2200, 'aggregates')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="aggregates">
+                    <div class="product-image">
+                        <div class="image-placeholder">🪨</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>20mm Jelly (Gravels)</h3>
+                        <p class="product-description">Coarse aggregate for concrete</p>
+                        <div class="product-price">₹1,600</div>
+                        <div class="product-unit">Per Ton</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, '20mm Jelly (1 Ton)', 1600, 'aggregates')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="aggregates">
+                    <div class="product-image">
+                        <div class="image-placeholder">🪨</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>40mm Jelly (Gravels)</h3>
+                        <p class="product-description">Large aggregate for foundations</p>
+                        <div class="product-price">₹1,550</div>
+                        <div class="product-unit">Per Ton</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, '40mm Jelly (1 Ton)', 1550, 'aggregates')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TMT Bars -->
+                <div class="product-card" data-category="steel">
+                    <div class="product-image">
+                        <div class="image-placeholder">🔩</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>TMT Bars - 8mm</h3>
+                        <p class="product-description">Fe 500 Grade, ISI Certified</p>
+                        <div class="product-price">₹55,000</div>
+                        <div class="product-unit">Per Ton</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'TMT Bars 8mm (1 Ton)', 55000, 'steel')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="steel">
+                    <div class="product-image">
+                        <div class="image-placeholder">🔩</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>TMT Bars - 12mm</h3>
+                        <p class="product-description">Fe 500 Grade, ISI Certified</p>
+                        <div class="product-price">₹54,500</div>
+                        <div class="product-unit">Per Ton</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'TMT Bars 12mm (1 Ton)', 54500, 'steel')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="steel">
+                    <div class="product-image">
+                        <div class="image-placeholder">🔩</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>TMT Bars - 16mm</h3>
+                        <p class="product-description">Fe 500 Grade, ISI Certified</p>
+                        <div class="product-price">₹54,000</div>
+                        <div class="product-unit">Per Ton</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'TMT Bars 16mm (1 Ton)', 54000, 'steel')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- WPC Doors & Frames -->
+                <div class="product-card" data-category="doors">
+                    <div class="product-image">
+                        <div class="image-placeholder">🚪</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>WPC Door Frame</h3>
+                        <p class="product-description">Waterproof, termite-proof - 7ft x 3ft</p>
+                        <div class="product-price">₹2,800</div>
+                        <div class="product-unit">Per Frame</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'WPC Door Frame 7x3ft', 2800, 'doors')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="doors">
+                    <div class="product-image">
+                        <div class="image-placeholder">🚪</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>WPC Door Shutter</h3>
+                        <p class="product-description">Premium finish - 7ft x 3ft</p>
+                        <div class="product-price">₹4,500</div>
+                        <div class="product-unit">Per Door</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'WPC Door Shutter 7x3ft', 4500, 'doors')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="doors">
+                    <div class="product-image">
+                        <div class="image-placeholder">🚪</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Flush Door</h3>
+                        <p class="product-description">Solid wood flush door - 7ft x 3ft</p>
+                        <div class="product-price">₹3,200</div>
+                        <div class="product-unit">Per Door</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'Flush Door 7x3ft', 3200, 'doors')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Plumbing Materials -->
+                <div class="product-card" data-category="plumbing">
+                    <div class="product-image">
+                        <div class="image-placeholder">🚰</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>PVC Pipe - 1/2 inch</h3>
+                        <p class="product-description">20ft length, ISI marked</p>
+                        <div class="product-price">₹180</div>
+                        <div class="product-unit">Per Pipe</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'PVC Pipe 1/2 inch', 180, 'plumbing')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="plumbing">
+                    <div class="product-image">
+                        <div class="image-placeholder">🚰</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>PVC Pipe - 1 inch</h3>
+                        <p class="product-description">20ft length, ISI marked</p>
+                        <div class="product-price">₹320</div>
+                        <div class="product-unit">Per Pipe</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'PVC Pipe 1 inch', 320, 'plumbing')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="plumbing">
+                    <div class="product-image">
+                        <div class="image-placeholder">🚰</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Water Tank - 500L</h3>
+                        <p class="product-description">Triple layer, UV resistant</p>
+                        <div class="product-price">₹4,800</div>
+                        <div class="product-unit">Per Tank</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'Water Tank 500L', 4800, 'plumbing')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="plumbing">
+                    <div class="product-image">
+                        <div class="image-placeholder">🚰</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Plumbing Fitting Kit</h3>
+                        <p class="product-description">Complete set - elbows, tees, valves</p>
+                        <div class="product-price">₹1,200</div>
+                        <div class="product-unit">Per Kit</div>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="0" min="0" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(this, 'Plumbing Fitting Kit', 1200, 'plumbing')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="close-modal" onclick="closeCheckout()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label for="customer-name">Full Name *</label>
+                        <input type="text" id="customer-name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone Number *</label>
+                        <input type="tel" id="customer-phone" required pattern="[6-9][0-9]{9}" placeholder="10-digit mobile number">
+                        <span class="help-text">This is mandatory for order confirmation</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-location">Delivery Location (Optional)</label>
+                        <textarea id="delivery-location" placeholder="Enter delivery address" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div id="checkout-items"></div>
+                        <div class="summary-total">
+                            <strong>Total Amount:</strong>
+                            <strong id="checkout-total">₹0</strong>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-order-btn">
+                        Place Order via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <script src="config.js"></script>
+    <script src="shop-script.js"></script>
+</body>
+</html>
