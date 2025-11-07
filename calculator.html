@@ -10,7 +10,7 @@
     <div class="calculator-container">
         <div class="calculator-header">
             <h1>🏗️ Construction Cost Calculator</h1>
-            <p class="subtitle">Get instant construction estimates with detailed specifications</p>
+            <p class="subtitle">Get instant construction estimates with detailed specifications and material requirements</p>
             <a href="index.html" class="back-link">← Back to Home</a>
         </div>
 
@@ -29,8 +29,31 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="plotArea">Plot/Construction Area (sq. ft) *</label>
+                    <label for="areaUnit">Area Unit *</label>
+                    <select id="areaUnit" name="areaUnit" required>
+                        <option value="">Choose unit</option>
+                        <option value="sqft">Square Feet (sq.ft)</option>
+                        <option value="sqyard">Square Yards (sq.yd)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="plotArea">Plot/Construction Area *</label>
                     <input type="number" id="plotArea" name="plotArea" required min="100" step="1" placeholder="e.g., 2000">
+                    <small id="areaConversion" style="color: #7f8c8d; margin-top: 5px; display: block;"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="floors">Number of Floors *</label>
+                    <select id="floors" name="floors" required>
+                        <option value="">Select floors</option>
+                        <option value="G">Ground Floor (G)</option>
+                        <option value="G+1">Ground + 1 Floor (G+1)</option>
+                        <option value="G+2">Ground + 2 Floors (G+2)</option>
+                        <option value="G+3">Ground + 3 Floors (G+3)</option>
+                        <option value="G+4">Ground + 4 Floors (G+4)</option>
+                        <option value="G+5">Ground + 5 Floors (G+5)</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -55,7 +78,7 @@
             </div>
 
             <button type="submit" class="btn-calculate">
-                Generate Detailed Estimation
+                Generate Detailed Estimation with Material Requirements
             </button>
         </form>
 
@@ -93,6 +116,7 @@
         </div>
     </div>
 
+    <script src="config.js"></script>
     <script src="calculator.js"></script>
 </body>
 </html>
