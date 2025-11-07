@@ -1,1 +1,242 @@
-# Shoutout
+# Interior Design & Construction Landing Page
+
+A professional landing page for interior design and construction services in Hyderabad with WhatsApp integration and lead form.
+
+## Features
+
+- ✅ **Responsive Design** - Works on all devices (desktop, tablet, mobile)
+- ✅ **WhatsApp Integration** - Direct chat button and form-to-WhatsApp conversion
+- ✅ **Lead Form with Spam Protection** - Honeypot and timing-based spam filtering
+- ✅ **GTM Integration** - Google Tag Manager event tracking ready
+- ✅ **SEO Optimized** - Meta tags and structured content
+- ✅ **Professional Design** - Modern UI with smooth animations
+- ✅ **Location-Specific** - Hyderabad area targeting (Madhapur, Gachibowli, Hitech City, etc.)
+
+## Quick Start
+
+### 1. Configure WhatsApp Number
+
+Edit `script.js` and replace the WhatsApp number on line 2:
+
+```javascript
+const WHATSAPP_NUMBER = '919876543210'; // Replace with your number (format: country code + number)
+```
+
+Example: For Indian number 9876543210, use: `'919876543210'`
+
+### 2. Configure Google Tag Manager (Optional but Recommended)
+
+Edit `index.html` and replace `GTM-XXXXXXX` with your actual GTM container ID in two places:
+- Line 10 (main GTM script)
+- Line 18 (noscript fallback)
+
+### 3. Deploy
+
+Simply upload these files to your web server:
+- `index.html`
+- `styles.css`
+- `script.js`
+
+Or use GitHub Pages, Netlify, Vercel, or any static hosting service.
+
+## File Structure
+
+```
+├── index.html    # Main landing page
+├── styles.css    # All styling
+├── script.js     # Form validation, WhatsApp integration, tracking
+└── README.md     # This file
+```
+
+## Features Breakdown
+
+### 1. Hero Section
+- Strong headline targeting Hyderabad
+- Clear value proposition
+- Prominent WhatsApp CTA button
+- Secondary callback CTA
+
+### 2. Services Section
+- Interior Design
+- Modular Kitchen
+- False Ceiling
+- Civil & MEP Work
+- Turnkey Projects
+- Approvals & Documentation
+
+### 3. Coverage Areas
+- Madhapur, Gachibowli, Hitech City
+- Jubilee Hills, Kondapur, Kukatpally
+- Miyapur, LB Nagar, Secunderabad
+- And more Hyderabad localities
+
+### 4. Trust Indicators
+- Years of experience
+- Project completion record
+- Warranty information
+- RERA certification
+
+### 5. Testimonials
+- Customer reviews
+- Location-specific testimonials
+- Star ratings
+
+### 6. Lead Form
+Collects minimal but essential information:
+- Full Name (validated)
+- Phone Number (10-digit Indian mobile validation)
+- Locality (dropdown with Hyderabad areas)
+- Property Type (Apartment, Villa, etc.)
+- Property Size (1BHK to 4BHK+)
+- Service Required (dropdown)
+- Email (optional)
+
+**Spam Protection:**
+- Honeypot field (hidden)
+- Submission timing check
+- Real-time validation
+- Terms agreement checkbox
+
+### 7. WhatsApp Integration
+
+**Two conversion paths:**
+
+1. **Direct WhatsApp Button** (Hero CTA)
+   - Opens WhatsApp with pre-filled message
+   - Tracks as "whatsapp_click" event
+
+2. **Form Submission to WhatsApp**
+   - User fills form
+   - Form validates and checks for spam
+   - Formatted message sent to WhatsApp
+   - Tracks as "lead_form_submit" event
+
+**Message Format:**
+```
+🏠 *New Lead - Interior Design Inquiry*
+
+📝 *Customer Details:*
+━━━━━━━━━━━━━━━━━
+👤 Name: [Customer Name]
+📱 Phone: [Phone Number]
+📧 Email: [Email]
+
+🏘️ *Property Information:*
+━━━━━━━━━━━━━━━━━
+📍 Locality: [Location]
+🏢 Property Type: [Type]
+📏 Size: [Size]
+🔧 Service Required: [Service]
+
+⏰ *Inquiry Date:* [Timestamp]
+```
+
+## Google Tag Manager Setup
+
+### Events Tracked:
+
+1. **page_view** - When page loads
+2. **whatsapp_click** - When WhatsApp button is clicked
+3. **lead_form_submit** - When form is submitted successfully
+4. **whatsapp_redirect** - When form redirects to WhatsApp
+5. **spam_blocked** - When spam is detected
+
+### GTM Configuration:
+
+#### For WhatsApp Click Conversion:
+1. Create a Trigger: Click URL contains "wa.me" or "api.whatsapp.com"
+2. Create a Tag: Google Ads Conversion - "WhatsApp Click"
+3. Set Conversion Value (e.g., ₹500 for click)
+
+#### For Lead Form Conversion:
+1. Create a Trigger: Custom Event = "lead_form_submit"
+2. Create a Tag: Google Ads Conversion - "Lead Form Submit"
+3. Set Conversion Value (e.g., ₹1000 for qualified lead)
+
+## Google Ads Campaign Setup
+
+Based on the requirements, here's the campaign structure:
+
+### Campaign Settings:
+- **Objective:** Leads
+- **Campaign Type:** Search
+- **Bidding:** Maximize Conversions (switch to Target CPA after 20-30 conversions)
+- **Budget:** ₹1,000-₹3,000/day
+- **Location:** Hyderabad (with specific area radius targeting)
+- **Languages:** English + Telugu + Hindi
+- **Ad Schedule:** 8 AM - 9 PM IST
+
+### Keywords Examples:
+```
+[interior designer hyderabad]
+"interior design madhapur"
+"modular kitchen gachibowli"
+[home renovation hyderabad]
+"construction contractor hitech city"
+```
+
+### Negative Keywords:
+```
+-jobs -careers -salary -course -training -DIY -free 
+-furniture -IKEA -autocad -degree -tenders
+```
+
+### Ad Extensions:
+- Sitelink: "Chat on WhatsApp" → wa.me link
+- Call Extension: Your phone number
+- Location Extension: Google Business Profile
+- Lead Form Extension: Quick lead capture
+- Callouts: "Free Site Visit", "3D Designs", "On-Time Delivery"
+
+## Customization
+
+### Change Colors:
+Edit `styles.css` root variables (lines 10-17):
+```css
+:root {
+    --primary-color: #25D366;  /* WhatsApp green */
+    --secondary-color: #FF6B35;
+    --text-dark: #2c3e50;
+    /* ... */
+}
+```
+
+### Update Content:
+- Service descriptions in `index.html`
+- Testimonials (lines 155-178)
+- Coverage areas (lines 139-152)
+- Trust indicators (lines 182-211)
+
+### Add More Locations:
+Edit the locality dropdown in `index.html` (lines 248-262)
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Performance
+
+- Lightweight (~36KB total uncompressed)
+- No external dependencies
+- Fast loading (<1s on good connection)
+- Mobile-optimized
+
+## Security & Privacy
+
+- No data stored on server
+- All leads go directly to WhatsApp
+- Honeypot spam protection
+- No cookies or tracking (except GTM if configured)
+- HTTPS recommended for production
+
+## Support & Customization
+
+For questions or custom development, contact through the form on the page.
+
+## License
+
+Free to use and modify for your business.
