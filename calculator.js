@@ -1,10 +1,13 @@
 // Construction Calculator Script
 
 // Configuration
+// Construction Calculator Script
+
+// Configuration
 const WHATSAPP_NUMBER = '919876543210'; // Replace with your actual WhatsApp number (country code + number)
 const MIN_PLOT_AREA = 100; // Minimum plot area in sq. ft
 
-// Package specifications with detailed breakdown
+// Package specifications with simplified text
 const packageSpecs = {
     silver: {
         name: 'Silver',
@@ -12,53 +15,53 @@ const packageSpecs = {
         color: 'silver',
         specs: {
             'Design': {
-                'a. Architectural Design': 'Site Layout Plan\nArchitectural Detailing',
-                'b. Structural & MEP Design': 'Earthquake Resistant Structural Detailing\nPlumbing and Electrical drawing',
-                'c. Additionals': 'Furniture Layout'
+                'a. Architectural Design': 'Basic site layout and building design by ShoutOut.',
+                'b. Structural & MEP Design': 'Earthquake-safe structure, plumbing, and electrical plans.',
+                'c. Add-ons': 'Basic furniture layout included.'
             },
             'Civil Works': {
-                'a. Formwork': 'Slab shuttering MS plates\nColumn and Beams: Plywood sheets attached to timber frames',
-                'b. Reinforcement steel': 'Fe 415 grade\nBrands: Trishul, Kamdhenu, Pushpak, Shakti, equivalent\nMS binding wire\nConcrete cover blocks',
-                'c. Concrete': 'M25 Designed Mix',
-                'd. Cement': 'OPC 53 G for Concrete - Brands: Chettinad, Bharthi, ACC, Equivalent\nPPC for masonry, Plaster for Tiling - Brands: Chettinad, Bharthi, ACC, Equivalent',
-                'e. Masonry': 'Fly ash Bricks/CLC Bricks\nInternal walls – 150mm, External walls – 150mm\n(Happho approved local brands)\nCrushed sand for jointing mortar',
-                'f. External Plaster': 'Cement & Plaster sand using water proofing chemical',
-                'g. Internal Plaster': 'Internal plaster (wet areas) – Cement and Plaster sand\nInternal plaster (dry areas) – POP plaster - Brands: HappHo approved local brands',
-                'h. Ceiling Finishing': 'White cement/Gypsum based putty - Brands: Birla, JK, Walplast or Happho approved local brands',
-                'i. WaterProofing': 'Chemical Waterproofing - Brands: Dr. Fixit, Sika, BASF',
-                'j. Others': 'Anti-Termite Treatment at foundation and plinth level'
+                'a. Formwork': 'Temporary molds for concrete work.',
+                'b. Reinforcement Steel': 'Strong steel bars for building strength.',
+                'c. Concrete': 'High-quality concrete mix for durability.',
+                'd. Cement': 'Top brands for strong walls and floors.',
+                'e. Masonry': 'Fly ash bricks for walls, eco-friendly and durable.',
+                'f. External Plaster': 'Waterproof plaster for outer walls.',
+                'g. Internal Plaster': 'Smooth finish for inner walls.',
+                'h. Ceiling Finish': 'White cement or gypsum for a clean look.',
+                'i. Waterproofing': 'Leak-proofing with trusted brands.',
+                'j. Others': 'Anti-termite treatment for long-lasting protection.'
             },
             'Bathroom': {
-                'a. Concealed Pipes': 'Wall concealed pipes: CPVC - Brands: Finolex, Supreme',
-                'b. Dado Tiles': 'Ceramic tiles @ ₹40/sq.ft, 7\' height (fixed with SBR Bonding agent)\nBrands: Somany, Nitco, Asian Granito, Morbi Manufactured Tiles',
-                'c. Floor Tiles': 'Anti skid tiles @ ₹45/sq.ft - Brands: Somany, Nitco, Asian Granito, Morbi Manufactured Tiles',
-                'd. Fixtures': 'Sanitary & CP fixtures @ ₹20,000 - Brands: Hindware, Parryware, RAK, Plumber'
+                'a. Pipes': 'Hidden pipes for a clean look.',
+                'b. Wall Tiles': 'Ceramic tiles up to 7 feet for easy cleaning.',
+                'c. Floor Tiles': 'Anti-slip tiles for safety.',
+                'd. Fixtures': 'Basic bathroom fittings from trusted brands.'
             },
             'Electrical': {
-                'a. Conduits': 'MMS grade PVC Conduits - Brands: Precision, Supreme',
-                'b. Wires & Cables': 'Flame Retardent - Brands: Polycab, Finolex, HPL, Anchor',
-                'c. Switches and Sockets': 'Brands: Anchor, HPL, L&T'
+                'a. Conduits': 'PVC pipes for safe wiring.',
+                'b. Wires & Cables': 'Fire-resistant wires for safety.',
+                'c. Switches': 'Reliable switches and sockets.'
             },
             'Doors & Windows': {
-                'a. Main Door': 'Hard Wood Frame & Engineered Door Shutters 35mm (Factory finished) - HappHo approved brands',
-                'b. Door Kit': 'Brass alloy - HappHo approved brands',
-                'c. Windows': 'Subframe, Aluminium 19mm series main frame, powder coated, 5mm clear glass - HappHo approved local brands'
+                'a. Main Door': 'Strong wooden door for security.',
+                'b. Door Kit': 'Durable handles and locks.',
+                'c. Windows': 'Aluminum windows with clear glass.'
             },
             'Kitchen': {
-                'a. Countertop (OTA)': 'Granite @ ₹150/sq.ft',
-                'b. Wall tiles (Dado tiles)': 'Ceramic tiles 2\' above kitchen platform @ ₹40/sq.ft - Brands: Somany, Nitco, Asian Granito, Morbi Manufactured Tiles',
-                'c. Kitchen Sink and accessories': 'Single Sink bowl – SS 304, Faucet & Accessories @ ₹6,000',
-                'd. Modular Kitchen': 'Not included'
+                'a. Countertop': 'Granite countertop for durability.',
+                'b. Wall Tiles': 'Easy-to-clean tiles above the counter.',
+                'c. Sink': 'Stainless steel sink with faucet.',
+                'd. Modular Kitchen': 'Not included in this package.'
             },
             'Flooring & Painting': {
-                'a. Flooring': 'Living & Dining: Vitrified tiles (600x600) @ ₹45/sq.ft\nBed Room: Vitrified tiles (600x600) @ ₹45/sq.ft\nTerraces: Antiskid @ ₹50/sq.ft\nStaircase: Indian granite @ ₹60/sq.ft\nParking: Chequered tiles @ ₹45/sq.ft',
-                'b. Painting': 'Internal: Oil Bound Distemper (OBD)\nExternal: Weather proof, anti-algae, anti-fungal, Exterior emulsion\nBrands: Asian, Berger, Nerolac, ICI Dulux'
+                'a. Flooring': 'Vitrified tiles for living areas and bedrooms.',
+                'b. Painting': 'Basic interior and weatherproof exterior paint.'
             },
             'Add-On Features': {
-                'a. Balcony and Terraces': 'MS Railing',
-                'b. Entrance Lobby': 'Vitrified Flooring, Ramp for differently able people',
-                'c. False Ceiling': 'Not included',
-                'd. Home Automation': 'Not included'
+                'a. Balcony': 'Simple railing for safety.',
+                'b. Entrance': 'Basic flooring and ramp for accessibility.',
+                'c. False Ceiling': 'Not included in this package.',
+                'd. Home Automation': 'Not included in this package.'
             }
         }
     },
@@ -68,53 +71,53 @@ const packageSpecs = {
         color: 'gold',
         specs: {
             'Design': {
-                'a. Architectural Design': 'Site Layout Plan\nArchitectural Detailing',
-                'b. Structural & MEP Design': 'Earthquake Resistant Structural Detailing\nPlumbing and Electrical drawing',
-                'c. Additionals': 'Furniture Layout\nHardscape & Landscape\nRain Water Harvesting'
+                'a. Architectural Design': 'Detailed site layout and building design by ShoutOut.',
+                'b. Structural & MEP Design': 'Advanced structure, plumbing, and electrical plans.',
+                'c. Add-ons': 'Furniture layout, landscaping, and rainwater harvesting.'
             },
             'Civil Works': {
-                'a. Formwork': 'Slab shuttering Film faced plywood\nColumn and Beams: Plywood sheets attached to MS frames',
-                'b. Reinforcement steel': 'Fe 500 grade\nBrands: Trishul, Vizag, JSW, Welspun\nGI binding wire\nPVC cover blocks',
-                'c. Concrete': 'M25 Designed Mix',
-                'd. Cement': 'OPC 53 G for Concrete - Brands: Chettinad, Bharthi, Ultratech, ACC, Birla Super\nPPC for masonry, Plaster for Tiling - Brands: Chettinad, Bharthi, Ultratech, ACC, Birla',
-                'e. Masonry': 'Fly ash Bricks/Cellular Lightweight Concrete Blocks\nInternal walls – 150mm, External walls – 150mm\n(Happho approved local brands)\nCrushed sand for jointing mortar',
-                'f. External Plaster': 'Cement & Plaster sand using water proofing chemical',
-                'g. Internal Plaster': 'Internal plaster (wet areas) – Cement and Plaster sand\nInternal plaster (dry areas) – POP/Gypsum plaster - Brands: Saint Gobain, Walplast, Buildcon, Diamond, Supreme',
-                'h. Ceiling Finishing': 'White cement/Gypsum based putty - Brands: Birla, JK, Saint Gobain, Walplast\nChemical Waterproofing - Brands: Dr. Fixit, Sika, BASF',
-                'i. WaterProofing': 'Chemical Waterproofing - Brands: Dr. Fixit, Sika, BASF',
-                'j. Others': 'Anti-Termite Treatment at foundation and plinth level'
+                'a. Formwork': 'High-quality molds for concrete work.',
+                'b. Reinforcement Steel': 'Premium steel bars for extra strength.',
+                'c. Concrete': 'Durable concrete mix for long life.',
+                'd. Cement': 'Top brands for strong and lasting construction.',
+                'e. Masonry': 'Lightweight blocks for walls, eco-friendly.',
+                'f. External Plaster': 'Waterproof plaster for outer walls.',
+                'g. Internal Plaster': 'Smooth finish with gypsum plaster.',
+                'h. Ceiling Finish': 'Gypsum-based finish for a premium look.',
+                'i. Waterproofing': 'Leak-proofing with advanced chemicals.',
+                'j. Others': 'Anti-termite treatment for long-lasting protection.'
             },
             'Bathroom': {
-                'a. Concealed Pipes': 'Wall concealed pipes: CPVC - Brands: Finolex, Supreme',
-                'b. Dado Tiles': 'Ceramic tiles @ ₹60/sq.ft, 7\' height (fixed with SBR Bonding agent)\nBrands: Nitco, Asian Granito, Kajaria, HR Johnson',
-                'c. Floor Tiles': 'Anti skid tiles @ ₹60/sq.ft - Brands: Nitco, Asian Granito, Kajaria, HR Johnson',
-                'd. Fixtures': 'Sanitary & CP fixtures @ ₹35,000 - Brands: Hindware, Jaquar, CERA, RAK'
+                'a. Pipes': 'Hidden pipes for a clean look.',
+                'b. Wall Tiles': 'Premium tiles up to 7 feet for easy cleaning.',
+                'c. Floor Tiles': 'Anti-slip tiles for safety.',
+                'd. Fixtures': 'High-quality bathroom fittings from top brands.'
             },
             'Electrical': {
-                'a. Conduits': 'MMS FRLS grade PVC Conduits - Brands: Precision, Supreme',
-                'b. Wires & Cables': 'Flame Retardent Low Smoke - Brands: Polycab, Finolex, Havells, Anchor',
-                'c. Switches and Sockets': 'Brands: Anchor, Schneider, Crabtree, Finolex'
+                'a. Conduits': 'Fire-resistant PVC pipes for safe wiring.',
+                'b. Wires & Cables': 'Flame-retardant wires for safety.',
+                'c. Switches': 'Premium switches and sockets.'
             },
             'Doors & Windows': {
-                'a. Main Door': 'Pine Wood Frame & Flush Door Shutters laminate finish, 40mm - HappHo approved brands',
-                'b. Door Kit': 'Brass Chromium Plated - HappHo approved brands',
-                'c. Windows': 'Subframe, Aluminium 25mm series main frame, anodized, 5mm tinted glass - HappHo approved brands, Marble sill at bottom'
+                'a. Main Door': 'Premium wooden door for security.',
+                'b. Door Kit': 'High-quality handles and locks.',
+                'c. Windows': 'Aluminum windows with tinted glass.'
             },
             'Kitchen': {
-                'a. Countertop (OTA)': 'Galaxy black granite @ ₹180/sq.ft',
-                'b. Wall tiles (Dado tiles)': 'Ceramic tiles 2\' above kitchen platform @ ₹50/sq.ft - Brands: Nitco, Asian Granito, Kajaria, HR Johnson',
-                'c. Kitchen Sink and accessories': 'Single Sink bowl – SS 304 with drainer, Faucet & Accessories @ ₹12,000',
-                'd. Modular Kitchen': 'Modular Kitchen @ ₹1,00,000'
+                'a. Countertop': 'Granite countertop for durability.',
+                'b. Wall Tiles': 'Easy-to-clean tiles above the counter.',
+                'c. Sink': 'Stainless steel sink with faucet.',
+                'd. Modular Kitchen': 'Included in this package.'
             },
             'Flooring & Painting': {
-                'a. Flooring': 'Living & Dining: Vitrified tiles (800x800) @ ₹125/sq.ft\nBed Room: Vitrified tiles (600x600) or wooden tiles @ ₹85/sq.ft\nTerraces: Antiskid @ ₹60/sq.ft\nStaircase: Indian granite @ ₹80/sq.ft\nParking: Paver tiles @ ₹60/sq.ft',
-                'b. Painting': 'Internal: Emulsion paint (Matt/Satin finish), Washable, Stain resistant, Anti fungal\nExternal: Weather proof, anti-algae, anti-fungal, Exterior emulsion\nBrands: Asian, Berger, Nerolac, Jotun'
+                'a. Flooring': 'Vitrified tiles for living areas and bedrooms.',
+                'b. Painting': 'Premium interior and weatherproof exterior paint.'
             },
             'Add-On Features': {
-                'a. Balcony and Terraces': 'SS 202 Railing',
-                'b. Entrance Lobby': 'Granite with Marble Inlay Flooring, Ramp for differently able people',
-                'c. False Ceiling': 'Designer False Ceiling in living and dining area',
-                'd. Home Automation': 'Home Automation @ ₹25,000'
+                'a. Balcony': 'Stylish railing for safety.',
+                'b. Entrance': 'Granite flooring and ramp for accessibility.',
+                'c. False Ceiling': 'Designer false ceiling in living areas.',
+                'd. Home Automation': 'Basic home automation included.'
             }
         }
     },
@@ -124,53 +127,53 @@ const packageSpecs = {
         color: 'platinum',
         specs: {
             'Design': {
-                'a. Architectural Design': 'Site Layout Plan\nArchitectural Detailing',
-                'b. Structural & MEP Design': 'Earthquake Resistant Structural Detailing\nPlumbing and Electrical drawing',
-                'c. Additionals': 'Furniture Layout\nHardscape & Landscape\nRain Water Harvesting\nHeating Ventilation and Air Conditioning'
+                'a. Architectural Design': 'Comprehensive site layout and building design by ShoutOut.',
+                'b. Structural & MEP Design': 'Top-notch structure, plumbing, and electrical plans.',
+                'c. Add-ons': 'Furniture layout, landscaping, rainwater harvesting, and HVAC.'
             },
             'Civil Works': {
-                'a. Formwork': 'Slab shuttering Film faced plywood\nColumn and Beams: Plywood sheets attached to MS frames',
-                'b. Reinforcement steel': 'Fe 500 grade\nBrand: TATA steel, Vizag, JSW, SAIL\nGI binding wire\nPVC cover blocks',
-                'c. Concrete': 'M25 Designed Mix',
-                'd. Cement': 'OPC 53 G for Concrete - Brands: Chettinad, Bharthi, Ultratech, ACC, Birla Super\nPPC for masonry, Plaster for Tiling - Brands: Chettinad, Bharthi, Ultratech, ACC, Birla',
-                'e. Masonry': 'Autoclaved Aerated Concrete Blocks\nInternal walls – 200mm, External walls – 150mm\nBrands: Siporex, Magicrete, Ecolite, Ultratech\nCrushed sand for jointing mortar',
-                'f. External Plaster': 'Cement & Plaster sand using water proofing chemical',
-                'g. Internal Plaster': 'Internal plaster (wet areas) – Cement and Plaster sand\nInternal plaster (dry areas) – POP/Gypsum plaster - Brands: Saint Gobain, Walplast, Buildcon, Diamond, Supreme',
-                'h. Ceiling Finishing': 'White cement/Gypsum based putty - Brands: Birla, JK, Saint Gobain, Walplast',
-                'i. WaterProofing': 'Chemical Waterproofing - Brands: Dr. Fixit, Sika, BASF',
-                'j. Others': 'Anti-Termite Treatment at foundation and plinth level'
+                'a. Formwork': 'Premium molds for concrete work.',
+                'b. Reinforcement Steel': 'Top-grade steel bars for maximum strength.',
+                'c. Concrete': 'High-strength concrete mix for durability.',
+                'd. Cement': 'Best brands for strong and lasting construction.',
+                'e. Masonry': 'AAC blocks for walls, eco-friendly and durable.',
+                'f. External Plaster': 'Waterproof plaster for outer walls.',
+                'g. Internal Plaster': 'Smooth finish with gypsum plaster.',
+                'h. Ceiling Finish': 'Gypsum-based finish for a premium look.',
+                'i. Waterproofing': 'Leak-proofing with advanced chemicals.',
+                'j. Others': 'Anti-termite treatment for long-lasting protection.'
             },
             'Bathroom': {
-                'a. Concealed Pipes': 'Wall concealed pipes: CPVC - Brands: Finolex, Supreme',
-                'b. Dado Tiles': 'Vitrified tiles @ ₹80/sq.ft, 7\' height (fixed with SBR Bonding agent and spacers)\nBrands: Nitco, Asian Granito, Kajaria, HR Johnson',
-                'c. Floor Tiles': 'Anti skid tiles @ ₹75/sq.ft fixed with spacer - Brands: Nitco, Asian Granito, Kajaria, HR Johnson',
-                'd. Fixtures': 'Sanitary & CP fixtures @ ₹50,000 - Brands: Kohler, Roca, Grohe, Kludi'
+                'a. Pipes': 'Hidden pipes for a clean look.',
+                'b. Wall Tiles': 'Luxury tiles up to 7 feet for easy cleaning.',
+                'c. Floor Tiles': 'Anti-slip tiles for safety.',
+                'd. Fixtures': 'Luxury bathroom fittings from top brands.'
             },
             'Electrical': {
-                'a. Conduits': 'HMS FRLS grade PVC Conduits - Brands: Precision, Supreme',
-                'b. Wires & Cables': 'Flame Retardent Low Smoke - Brands: Polycab, Finolex, Havells, Anchor',
-                'c. Switches and Sockets': 'Brands: Schneider, Crabtree, Legrand'
+                'a. Conduits': 'Fire-resistant PVC pipes for safe wiring.',
+                'b. Wires & Cables': 'Flame-retardant wires for safety.',
+                'c. Switches': 'Luxury switches and sockets.'
             },
             'Doors & Windows': {
-                'a. Main Door': 'Pine Wood Frame & Flush Door Shutters Veneer finish, 45mm - HappHo approved brands',
-                'b. Door Kit': 'Stainless steel - HappHo approved brands',
-                'c. Windows': 'Subframe, Aluminium 35mm series, anodized, Double glass unit (tinted) - HappHo approved brands or UPVC Windows, Marble sill four sides'
+                'a. Main Door': 'Luxury wooden door for security.',
+                'b. Door Kit': 'Premium handles and locks.',
+                'c. Windows': 'Aluminum windows with double glass.'
             },
             'Kitchen': {
-                'a. Countertop (OTA)': 'Jet black granite @ ₹250/sq.ft',
-                'b. Wall tiles (Dado tiles)': 'Ceramic tiles 2\' above kitchen platform @ ₹80/sq.ft - Brands: Nitco, Asian Granito, Kajaria, HR Johnson',
-                'c. Kitchen Sink and accessories': 'Double sink bowl SS 304, faucet & accessories @ ₹18,000',
-                'd. Modular Kitchen': 'Modular Kitchen @ ₹2,50,000'
+                'a. Countertop': 'Premium granite countertop for durability.',
+                'b. Wall Tiles': 'Easy-to-clean tiles above the counter.',
+                'c. Sink': 'Double stainless steel sink with faucet.',
+                'd. Modular Kitchen': 'Luxury modular kitchen included.'
             },
             'Flooring & Painting': {
-                'a. Flooring': 'Living & Dining: Italian Marble @ ₹275/sq.ft\nBed Room: Italian Marble @ ₹275/sq.ft\nTerraces: Antiskid @ ₹80/sq.ft\nStaircase: Indian granite @ ₹120/sq.ft\nParking: Paver tiles/stamp coloured concrete @ ₹75/sq.ft',
-                'b. Painting': 'Internal: Emulsion paint (Matt/Satin finish), Washable, Stain resistant, Anti fungal\nExternal: Elastomeric Texture paint\nBrands: Asian, Berger, Nerolac, Jotun'
+                'a. Flooring': 'Italian marble for living areas and bedrooms.',
+                'b. Painting': 'Luxury interior and weatherproof exterior paint.'
             },
             'Add-On Features': {
-                'a. Balcony and Terraces': 'SS 304 Railing with Toughened Glass',
-                'b. Entrance Lobby': 'Marble Flooring and Designer False Ceiling, Ramp for differently able people',
-                'c. False Ceiling': 'Designer False Ceiling in living area, dining and bedrooms',
-                'd. Home Automation': 'Home Automation @ ₹1,00,000'
+                'a. Balcony': 'Glass railing for a modern look.',
+                'b. Entrance': 'Marble flooring and ramp for accessibility.',
+                'c. False Ceiling': 'Designer false ceiling in all rooms.',
+                'd. Home Automation': 'Advanced home automation included.'
             }
         }
     }
