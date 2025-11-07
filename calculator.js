@@ -1,5 +1,8 @@
 // Construction Calculator Script
 
+// Configuration
+const WHATSAPP_NUMBER = '919876543210'; // Replace with your actual WhatsApp number (country code + number)
+
 // Package specifications with detailed breakdown
 const packageSpecs = {
     silver: {
@@ -195,18 +198,29 @@ document.getElementById('calculatorForm').addEventListener('submit', function(e)
     
     // Validate
     if (!customerName || !location || !plotArea || !packageType) {
-        alert('Please fill in all required fields');
+        showValidationError('Please fill in all required fields');
         return;
     }
     
     if (plotArea < 100) {
-        alert('Plot area must be at least 100 sq. ft');
+        showValidationError('Plot area must be at least 100 sq. ft');
         return;
     }
     
     // Generate estimation
     generateEstimation(customerName, location, plotArea, packageType, email, phone);
 });
+
+function showValidationError(message) {
+    const button = document.querySelector('.btn-calculate');
+    const originalText = button.textContent;
+    button.textContent = '⚠️ ' + message;
+    button.style.background = '#e74c3c';
+    setTimeout(() => {
+        button.textContent = originalText;
+        button.style.background = '';
+    }, 3000);
+}
 
 function generateEstimation(customerName, location, plotArea, packageType, email, phone) {
     const packageData = packageSpecs[packageType];
@@ -294,7 +308,7 @@ function generateEstimation(customerName, location, plotArea, packageType, email
 
         <div class="action-buttons no-print">
             <button onclick="window.print()" class="btn btn-print">🖨️ Print Estimation</button>
-            <a href="https://wa.me/919876543210?text=${encodeURIComponent('Hi! I generated a construction estimation on ShoutOut. I would like to discuss the ' + packageData.name + ' package for ' + plotArea + ' sq.ft.')}" 
+            <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! I generated a construction estimation on ShoutOut. I would like to discuss the ' + packageData.name + ' package for ' + plotArea + ' sq.ft.')}" 
                class="btn btn-whatsapp" target="_blank">
                 💬 Discuss on WhatsApp
             </a>
