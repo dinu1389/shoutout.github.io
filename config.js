@@ -7,7 +7,7 @@ const GLOBAL_CONFIG = {
     WHATSAPP_NUMBER: '919876543210'
 };
 
-// Notify.sh Configuration
+// ntfy.sh Configuration
 // Topic for receiving notifications about new leads
 const NTFY_CONFIG = {
     TOPIC: 'shoutout', // ntfy.sh topic: https://ntfy.sh/shoutout

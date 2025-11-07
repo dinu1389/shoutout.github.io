@@ -7,19 +7,31 @@ A professional landing page for interior design and construction services in Hyd
 - ✅ **Responsive Design** - Works on all devices (desktop, tablet, mobile)
 - ✅ **WhatsApp Integration** - Direct chat button and form-to-WhatsApp conversion
 - ✅ **Lead Form with Spam Protection** - Honeypot and timing-based spam filtering
+- ✅ **ntfy.sh Notifications** - Real-time notifications when users enter phone numbers
 - ✅ **GTM Integration** - Google Tag Manager event tracking ready
 - ✅ **SEO Optimized** - Meta tags and structured content
 - ✅ **Professional Design** - Modern UI with smooth animations
 - ✅ **Location-Specific** - Hyderabad area targeting (Madhapur, Gachibowli, Hitech City, etc.)
+- ✅ **Construction Calculator** - Detailed cost estimation with material requirements
+  - Multiple area units (sq.ft and sq.yard)
+  - Floor selection (G, G+1, G+2, etc.)
+  - Material estimates (cement, bricks, TMT bars, sand, gravel)
 
 ## Quick Start
 
-### 1. Configure WhatsApp Number
+### 1. Configure Global Settings
 
-Edit `script.js` and replace the WhatsApp number on line 2:
+Edit `config.js` to set your WhatsApp number and ntfy.sh topic:
 
 ```javascript
-const WHATSAPP_NUMBER = '919876543210'; // Replace with your number (format: country code + number)
+const GLOBAL_CONFIG = {
+    WHATSAPP_NUMBER: '919876543210' // Replace with your number (format: country code + number)
+};
+
+const NTFY_CONFIG = {
+    TOPIC: 'shoutout', // Your ntfy.sh topic
+    ENABLED: true // Set to false to disable notifications
+};
 ```
 
 Example: For Indian number 9876543210, use: `'919876543210'`
@@ -34,18 +46,26 @@ Edit `index.html` and replace `GTM-XXXXXXX` with your actual GTM container ID in
 
 Simply upload these files to your web server:
 - `index.html`
+- `calculator.html`
 - `styles.css`
+- `calculator-styles.css`
 - `script.js`
+- `calculator.js`
+- `config.js`
 
 Or use GitHub Pages, Netlify, Vercel, or any static hosting service.
 
 ## File Structure
 
 ```
-├── index.html    # Main landing page
-├── styles.css    # All styling
-├── script.js     # Form validation, WhatsApp integration, tracking
-└── README.md     # This file
+├── index.html              # Main landing page
+├── calculator.html         # Construction cost calculator
+├── styles.css             # Main page styling
+├── calculator-styles.css  # Calculator page styling
+├── script.js              # Form validation, WhatsApp integration, tracking
+├── calculator.js          # Calculator logic and material estimation
+├── config.js              # Global configuration (WhatsApp number, ntfy.sh)
+└── README.md              # This file
 ```
 
 ## Features Breakdown
@@ -85,6 +105,7 @@ Or use GitHub Pages, Netlify, Vercel, or any static hosting service.
 Collects minimal but essential information:
 - Full Name (validated)
 - Phone Number (10-digit Indian mobile validation)
+  - **Automatic ntfy.sh notification** when valid phone number is entered
 - Locality (dropdown with Hyderabad areas)
 - Property Type (Apartment, Villa, etc.)
 - Property Size (1BHK to 4BHK+)
@@ -96,6 +117,12 @@ Collects minimal but essential information:
 - Submission timing check
 - Real-time validation
 - Terms agreement checkbox
+
+**ntfy.sh Integration:**
+- Sends instant notification when user enters valid phone number
+- Configure topic in `config.js`
+- Notifications sent to https://ntfy.sh/[your-topic]
+- Can be monitored via mobile app or web interface
 
 ### 7. WhatsApp Integration
 
@@ -130,6 +157,48 @@ Collects minimal but essential information:
 
 ⏰ *Inquiry Date:* [Timestamp]
 ```
+
+### 8. Construction Cost Calculator
+
+A comprehensive calculator for construction cost estimation with detailed material requirements.
+
+**Features:**
+- **Area Input Options:**
+  - Square Feet (sq.ft)
+  - Square Yards (sq.yd)
+  - Real-time conversion display
+  
+- **Floor Selection:**
+  - Ground Floor (G)
+  - G+1, G+2, G+3, G+4, G+5
+  - Automatic built-up area calculation
+
+- **Package Options:**
+  - Silver - ₹1,599 per sq.ft
+  - Gold - ₹1,999 per sq.ft
+  - Platinum - ₹2,599 per sq.ft
+
+- **Material Estimates:**
+  - Cement Bags (50kg count)
+  - Bricks (count)
+  - TMT Bars (tons)
+  - Sand (tons)
+  - Gravel/Aggregate (tons)
+
+**Calculation Formula:**
+- Material estimates are based on industry-standard ratios
+- Total built-up area = Plot area × Number of floors
+- Estimates include pillars, walls, and slabs
+- Displayed in easy-to-read cards with icons
+
+**Output:**
+- Detailed PDF-ready estimation report
+- Customer information
+- Package specifications
+- Material requirements
+- Cost breakdown
+- WhatsApp share option
+- Print option
 
 ## Google Tag Manager Setup
 

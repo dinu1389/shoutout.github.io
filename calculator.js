@@ -7,6 +7,21 @@ const MIN_PLOT_AREA = 100; // Minimum plot area in sq. ft
 // Area conversion constants
 const SQYARD_TO_SQFT = 9; // 1 sq yard = 9 sq ft
 
+// Material estimation constants (industry-standard ratios)
+const MATERIAL_RATIOS = {
+    CEMENT_BAGS_PER_SQFT: 0.4,      // Cement bags (50kg) per sq.ft for all work
+    WALL_AREA_RATIO: 0.3,            // Percentage of built-up area that is walls
+    BRICKS_PER_SQFT_WALL: 8,         // Bricks per sq.ft of wall area
+    TMT_BARS_KG_PER_SQFT: 4.5,       // TMT bars in kg per sq.ft
+    SAND_CUFT_PER_SQFT: 1.2,         // Sand in cubic feet per sq.ft
+    SAND_KG_PER_CUFT: 45,            // Weight of sand in kg per cubic feet
+    GRAVEL_CUFT_PER_SQFT: 1.5,       // Gravel/Aggregate in cubic feet per sq.ft
+    GRAVEL_KG_PER_CUFT: 50,          // Weight of aggregate in kg per cubic feet
+    KG_TO_TONS: 1000                 // Conversion factor from kg to tons
+};
+
+const AREA_CONVERSION_DECIMAL_PLACES = 2;
+
 // Package specifications with simplified text
 const packageSpecs = {
     silver: {
@@ -194,23 +209,26 @@ function calculateMaterialEstimates(areaInSqFt, floors) {
     const floorCount = getFloorCount(floors);
     const totalBuiltUpArea = areaInSqFt * floorCount;
     
-    // Cement bags (50kg each) - approximately 0.4 bags per sq.ft for all work
-    const cementBags = Math.ceil(totalBuiltUpArea * 0.4);
+    // Cement bags (50kg each)
+    const cementBags = Math.ceil(totalBuiltUpArea * MATERIAL_RATIOS.CEMENT_BAGS_PER_SQFT);
     
-    // Bricks - approximately 8 bricks per sq.ft of wall area
-    // Assuming 30% of built-up area is walls
-    const bricks = Math.ceil(totalBuiltUpArea * 0.3 * 8);
+    // Bricks - assuming percentage of built-up area is walls
+    const wallArea = totalBuiltUpArea * MATERIAL_RATIOS.WALL_AREA_RATIO;
+    const bricks = Math.ceil(wallArea * MATERIAL_RATIOS.BRICKS_PER_SQFT_WALL);
     
-    // TMT bars (in tons) - approximately 4-5 kg per sq.ft
-    const tmtBars = (totalBuiltUpArea * 4.5 / 1000).toFixed(2);
+    // TMT bars (in tons)
+    const tmtBarsKg = totalBuiltUpArea * MATERIAL_RATIOS.TMT_BARS_KG_PER_SQFT;
+    const tmtBars = (tmtBarsKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
     
-    // Sand (in tons) - approximately 1.2 cubic feet per sq.ft converted to tons
-    // 1 cubic feet of sand = ~45 kg, so 1.2 cu.ft = 54 kg = 0.054 tons
-    const sand = (totalBuiltUpArea * 0.054).toFixed(2);
+    // Sand (in tons)
+    const sandCuFt = totalBuiltUpArea * MATERIAL_RATIOS.SAND_CUFT_PER_SQFT;
+    const sandKg = sandCuFt * MATERIAL_RATIOS.SAND_KG_PER_CUFT;
+    const sand = (sandKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
     
-    // Gravel/Aggregate (in tons) - approximately 1.5 cubic feet per sq.ft
-    // 1 cubic feet of aggregate = ~50 kg, so 1.5 cu.ft = 75 kg = 0.075 tons
-    const gravel = (totalBuiltUpArea * 0.075).toFixed(2);
+    // Gravel/Aggregate (in tons)
+    const gravelCuFt = totalBuiltUpArea * MATERIAL_RATIOS.GRAVEL_CUFT_PER_SQFT;
+    const gravelKg = gravelCuFt * MATERIAL_RATIOS.GRAVEL_KG_PER_CUFT;
+    const gravel = (gravelKg / MATERIAL_RATIOS.KG_TO_TONS).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
     
     return {
         cementBags,
@@ -262,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const sqft = area * SQYARD_TO_SQFT;
             areaConversionDiv.textContent = `≈ ${sqft.toLocaleString('en-IN')} sq.ft`;
         } else {
-            const sqyard = (area / SQYARD_TO_SQFT).toFixed(2);
+            const sqyard = (area / SQYARD_TO_SQFT).toFixed(AREA_CONVERSION_DECIMAL_PLACES);
             areaConversionDiv.textContent = `≈ ${sqyard} sq.yd`;
         }
     }

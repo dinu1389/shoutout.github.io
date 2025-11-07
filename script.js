@@ -270,9 +270,15 @@ function isValidIndianPhone(phone) {
     return INDIAN_PHONE_REGEX.test(phone);
 }
 
+// Track notified phone numbers to prevent duplicate notifications
+const notifiedPhones = new Set();
+
 // Send notification to ntfy.sh
 async function sendNtfyNotification(phone, name = '') {
     if (!NTFY_CONFIG.ENABLED) return;
+    
+    // Prevent duplicate notifications for the same phone number
+    if (notifiedPhones.has(phone)) return;
     
     try {
         const message = name 
@@ -288,6 +294,9 @@ async function sendNtfyNotification(phone, name = '') {
                 'Tags': 'phone,lead'
             }
         });
+        
+        // Mark this phone as notified
+        notifiedPhones.add(phone);
         console.log('Notification sent to ntfy.sh');
     } catch (error) {
         console.error('Failed to send ntfy.sh notification:', error);
