@@ -117,6 +117,18 @@ body {
     transform: translateY(-2px);
 }
 
+.btn-accent {
+    background: linear-gradient(135deg, #FF6B35, #F7931E);
+    color: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.btn-accent:hover {
+    background: linear-gradient(135deg, #F7931E, #FF6B35);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
 .btn-submit {
     width: 100%;
     margin-top: 10px;
@@ -178,6 +190,71 @@ body {
 .service-card p {
     color: var(--text-light);
     line-height: 1.6;
+}
+
+.service-card .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+}
+
+/* Post Your Requirement Section */
+.post-requirement {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--white);
+    text-align: center;
+}
+
+.post-requirement h2 {
+    color: var(--white);
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.requirement-benefits {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 25px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.benefit-icon {
+    background: var(--primary-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.benefit-item p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.cta-center {
+    display: flex;
+    justify-content: center;
 }
 
 /* Coverage Section */

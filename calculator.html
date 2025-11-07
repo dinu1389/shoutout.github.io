@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Cost Calculator - ShoutOut</title>
+    <link rel="stylesheet" href="calculator-styles.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>🏗️ Construction Cost Calculator</h1>
+            <p class="subtitle">Get instant construction estimates with detailed specifications</p>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+
+        <form id="calculatorForm" class="calculator-form">
+            <div class="form-section">
+                <h2>Basic Information</h2>
+                
+                <div class="form-group">
+                    <label for="customerName">Customer Name *</label>
+                    <input type="text" id="customerName" name="customerName" required placeholder="Mr/Mrs/Ms">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location *</label>
+                    <input type="text" id="location" name="location" required placeholder="e.g., Madhapur, Hyderabad">
+                </div>
+
+                <div class="form-group">
+                    <label for="plotArea">Plot/Construction Area (sq. ft) *</label>
+                    <input type="number" id="plotArea" name="plotArea" required min="100" step="1" placeholder="e.g., 2000">
+                </div>
+
+                <div class="form-group">
+                    <label for="package">Select Package *</label>
+                    <select id="package" name="package" required>
+                        <option value="">Choose a package</option>
+                        <option value="silver">Silver - ₹1,599 per sq. ft</option>
+                        <option value="gold">Gold - ₹1,999 per sq. ft</option>
+                        <option value="platinum">Platinum - ₹2,599 per sq. ft</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email (Optional)</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number (Optional)</label>
+                    <input type="tel" id="phone" name="phone" pattern="[6-9][0-9]{9}" placeholder="10-digit mobile number">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-calculate">
+                Generate Detailed Estimation
+            </button>
+        </form>
+
+        <div class="info-section">
+            <h3>Package Comparison</h3>
+            <div class="packages-grid">
+                <div class="package-card silver">
+                    <h4>Silver</h4>
+                    <p class="price">₹1,599/sq.ft</p>
+                    <ul>
+                        <li>Standard materials</li>
+                        <li>Basic finishes</li>
+                        <li>Essential features</li>
+                    </ul>
+                </div>
+                <div class="package-card gold">
+                    <h4>Gold</h4>
+                    <p class="price">₹1,999/sq.ft</p>
+                    <ul>
+                        <li>Premium materials</li>
+                        <li>Quality finishes</li>
+                        <li>Enhanced features</li>
+                    </ul>
+                </div>
+                <div class="package-card platinum">
+                    <h4>Platinum</h4>
+                    <p class="price">₹2,599/sq.ft</p>
+                    <ul>
+                        <li>Luxury materials</li>
+                        <li>Premium finishes</li>
+                        <li>All premium features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
