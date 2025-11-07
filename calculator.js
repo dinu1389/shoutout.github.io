@@ -345,7 +345,9 @@ function escapeHtml(text) {
 
 function generateEstimation(customerName, location, plotArea, areaUnit, areaInSqFt, floors, packageType, email, phone) {
     const packageData = packageSpecs[packageType];
-    const totalCost = areaInSqFt * packageData.rate;
+    const floorCount = getFloorCount(floors); // Get the number of floors
+    const totalBuiltUpArea = areaInSqFt * floorCount; // Total built-up area for all floors
+    const totalCost = totalBuiltUpArea * packageData.rate; // Total cost for all floors
     const randomFact = constructionFacts[Math.floor(Math.random() * constructionFacts.length)];
     
     // Calculate material estimates
@@ -364,10 +366,6 @@ function generateEstimation(customerName, location, plotArea, areaUnit, areaInSq
     
     // Create new window for estimation
     const estimationWindow = window.open('', '_blank');
-    
-    // Note: Using document.write() for client-side generation of estimation page
-    // All user inputs are sanitized via escapeHtml() to prevent XSS
-    // This is a client-side only application with no backend server
     
     // Generate HTML
     const html = `
@@ -451,12 +449,6 @@ function generateEstimation(customerName, location, plotArea, areaUnit, areaInSq
             </p>
         </div>
 
-        <div class="specifications">
-            <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Detailed Specifications - ${packageData.name} Package</h2>
-            
-            ${generateSpecificationsSections(packageData.specs)}
-        </div>
-
         <div class="cost-summary">
             <h2>Cost Summary</h2>
             <div class="cost-row">
@@ -469,7 +461,7 @@ function generateEstimation(customerName, location, plotArea, areaUnit, areaInSq
             </div>
             <div class="cost-row">
                 <span>Total Built-up Area:</span>
-                <span>${materials.totalBuiltUpArea.toLocaleString('en-IN')} sq. ft</span>
+                <span>${totalBuiltUpArea.toLocaleString('en-IN')} sq. ft</span>
             </div>
             <div class="cost-row">
                 <span>Rate per sq. ft (${packageData.name} Package):</span>
