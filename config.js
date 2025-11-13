@@ -4,7 +4,7 @@
 // WhatsApp Configuration - Replace with your actual WhatsApp number (country code + number)
 // Example: For Indian number 9876543210, use: '919876543210'
 const GLOBAL_CONFIG = {
-    WHATSAPP_NUMBER: '085000096767'
+    WHATSAPP_NUMBER: '+9185000096767'
 };
 
 // ntfy.sh Configuration
